@@ -47,9 +47,9 @@ def main():
 			if st.button("Stop"):
 				boolna = 0
 				onpage = 0
-def playy(vol, r, pages):
+def playy(vol, r, yo, pages):
 	while boolna==2:
-		for num in range(onpage, pages)
+		for num in range(yo, pages)
 			page = pdfreader.getPage(pgno)
 			tex = page.extractText()
 			player = pyttsx3.init()
@@ -57,7 +57,7 @@ def playy(vol, r, pages):
 			player.setProperty('volume', vol)
 			player.say(text)
 			player.runAndWait()
-			
+			onpage = yo
 		st.write("Finished")
 
 main()
