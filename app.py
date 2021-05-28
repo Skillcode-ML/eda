@@ -52,9 +52,6 @@ def playy(file, vol, r, yo, pages):
 	while boolna==2:
 		with fitz.open(file) as doc:
  			text = ""
-		#for num in range(yo, page in doc):
-			#page = pdfreader.getPage(pgno)
-			#tex = page.extractText()
 			for page in doc:
 				player = pyttsx3.init()
 				player.setProperty('rate', r)
@@ -65,3 +62,6 @@ def playy(file, vol, r, yo, pages):
 		st.write("Finished")
 
 main()
+#for num in range(yo, page in doc):
+			#page = pdfreader.getPage(pgno)
+			#tex = page.extractText()
