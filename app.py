@@ -49,7 +49,7 @@ def main():
 				onpage = 0
 def playy(vol, r, yo, pages):
 	while boolna==2:
-		for num in range(yo, pages)
+		for num in range(0, pages)
 			page = pdfreader.getPage(pgno)
 			tex = page.extractText()
 			player = pyttsx3.init()
