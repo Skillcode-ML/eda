@@ -41,13 +41,13 @@ def main():
 			
 			if st.button("Play"):
 				boolna = 2
-				playy(volume, rate, onpage)
+				playy(volume, rate, onpage, pages)
 			if st.button("Pause"):
 				boolna = 1
 			if st.button("Stop"):
 				boolna = 0
 				onpage = 0
-def playy(vol, r, pgno):
+def playy(vol, r, pgno, pages):
 	while boolna==2:
 		for num in range(pgno, pages)
 			page = pdfreader.getPage(pgno)
