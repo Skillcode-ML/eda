@@ -1,4 +1,5 @@
 import PyPDF2
+import fitz
 import streamlit as st 
 import pyttsx3
 
@@ -33,31 +34,34 @@ def main():
 
 		data = st.file_uploader("Upload a pdf file", type=["pdf"])
 		if data is not None:
-			pdfreader = PyPDF2.PdfFileReader(data)
-			pages = pdfreader.numPages()
+			#pdfreader = PyPDF2.PdfFileReader(data)
+			#pages = pdfreader.numPages()
 			
 			volume = st.slider('Volume',0,100,25,1)
 			rate = st.slider('Rate',0,100,45,1)
 			
 			if st.button("Play"):
 				boolna = 2
-				playy(volume, rate, onpage, pages)
+				playy(data, volume, rate, onpage, pages)
 			if st.button("Pause"):
 				boolna = 1
 			if st.button("Stop"):
 				boolna = 0
 				onpage = 0
-def playy(vol, r, yo, pages):
+def playy(file, vol, r, yo, pages):
 	while boolna==2:
-		for num in range(yo, pages):
-			page = pdfreader.getPage(pgno)
-			tex = page.extractText()
-			player = pyttsx3.init()
-			player.setProperty('rate', r)
-			player.setProperty('volume', vol)
-			player.say(text)
-			player.runAndWait()
-			onpage = yo
+		with fitz.open(file) as doc:
+ 			text = ""
+		#for num in range(yo, page in doc):
+			#page = pdfreader.getPage(pgno)
+			#tex = page.extractText()
+			for page in doc:
+				player = pyttsx3.init()
+				player.setProperty('rate', r)
+				player.setProperty('volume', vol)
+				player.say(page.getText())
+				player.runAndWait()
+				onpage = yo
 		st.write("Finished")
 
 main()
