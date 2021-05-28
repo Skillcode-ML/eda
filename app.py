@@ -16,7 +16,7 @@ def main():
 
 		data = st.file_uploader("Upload a text file", type=["txt"])
 		if data is not None:
-			df = pd.read_txt(data)
+			df = data.read()
 			
 			volume = st.slider('Volume',0,100,25,1)
 			rate = st.slider('Rate',0,100,85,1)
