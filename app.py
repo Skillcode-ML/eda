@@ -3,11 +3,11 @@ import streamlit as st
 import pyttsx3
 
 
-
+boolna = 0
+onpage = 0
 
 def main():
-	boolna = 0
-	onpage = 0
+	
 	type = [".txt",".pdf"]	
 	choice = st.sidebar.selectbox("Select the type of file",type)
 
