@@ -51,7 +51,6 @@ def main():
 def playy(file, vol, r, yo, pages):
 	while boolna==2:
 		with fitz.open(file) as doc:
- 			text = ""
 			for page in doc:
 				player = pyttsx3.init()
 				player.setProperty('rate', r)
@@ -59,7 +58,8 @@ def playy(file, vol, r, yo, pages):
 				player.say(page.getText())
 				player.runAndWait()
 				onpage = yo
-		st.write("Finished")
+	
+	st.write("Finished")
 
 main()
 #for num in range(yo, page in doc):
