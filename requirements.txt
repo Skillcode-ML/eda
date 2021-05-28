@@ -1,8 +1,5 @@
 streamlit
-pandas
+pyttsx3
+PyPDF2
 scikit_learn
-matplotlib
-seaborn
-plotly
-Pillow
-numpy
+
