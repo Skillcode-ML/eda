@@ -34,8 +34,8 @@ def main():
 
 		data = st.file_uploader("Upload a pdf file", type=["pdf"])
 		if data is not None:
-			#pdfreader = PyPDF2.PdfFileReader(data)
-			#pages = pdfreader.numPages()
+			pdfreader = PyPDF2.PdfFileReader(data)
+			pages = pdfreader.numPages()
 			
 			volume = st.slider('Volume',0,100,25,1)
 			rate = st.slider('Rate',0,100,45,1)
