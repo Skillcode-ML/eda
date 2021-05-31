@@ -8,7 +8,7 @@ boolna = 0
 onpage = 0
 
 def main():
-	
+	onpage = 0
 	type = [".txt",".pdf"]	
 	choice = st.sidebar.selectbox("Select the type of file",type)
 
