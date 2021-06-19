@@ -54,10 +54,10 @@ def main():
       <button id="cancel" class="btn btn-danger mt-5 me-3">Cancel</button>
     </div>
   </body>
-<script src="./textToSpeech.js"></script>
-<script src="/path/to/pdf.js"></script>
+
+<script src="pdf.js"></script>
 <script>
-PDFJS.workerSrc = '/path/to/pdf.worker.js';
+PDFJS.workerSrc = 'pdf.worker.js';
 let dropbox;
 
 dropbox = document.getElementById("dropbox");
