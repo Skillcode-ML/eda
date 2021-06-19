@@ -54,7 +54,7 @@ def main():
       <button id="resume" class="btn btn-info mt-5 me-3">Resume</button>
       <button id="cancel" class="btn btn-danger mt-5 me-3">Cancel</button>
     </div>
-  </body>
+ 
 
 <script src="pdf.js"></script>
 <script>
