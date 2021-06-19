@@ -1,5 +1,2 @@
 streamlit
-pyttsx3
-PyPDF2
-scikit_learn
-pymupdf
+streamlit.components 
