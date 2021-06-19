@@ -1,68 +1,107 @@
-import PyPDF2
-import fitz
 import streamlit as st 
-import pyttsx3
 
-
-boolna = 0
-onpage = 0
 
 def main():
-	onpage = 0
-	type = [".txt",".pdf"]	
-	choice = st.sidebar.selectbox("Select the type of file",type)
+        components.html("""
+           <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>File(s) size</title>
+</head>
 
-	if choice == '.txt':
-		st.subheader("Reading text file")
+<body>
+  <form name="uploadForm">
+    <div>
+      <input id="uploadInput" type="file" name="myFiles" multiple>
+      selected files: <span id="fileNum">0</span>;
+      total size: <span id="fileSize">0</span>
+    </div>
+    <div><input type="submit" value="Send file"></div>
+  </form>
 
-		data = st.file_uploader("Upload a text file", type=["txt"])
-		if data is not None:
-			df = data.read()
-			
-			volume = st.slider('Volume',0,100,25,1)
-			rate = st.slider('Rate',0,100,85,1)
-			engine = pyttsx3.init()
-			engine.setProperty('rate', rate)
-			engine.setProperty('volume', volume)
-			engine.say(text)
-			engine.runAndWait()
-			
-				
-		
-	if choice == '.pdf':
-		st.subheader("Reading pdf file")
+  <script>
+  function updateSize() {
+    let nBytes = 0,
+        oFiles = this.files,
+        nFiles = oFiles.length;
+    for (let nFileId = 0; nFileId < nFiles; nFileId++) {
+      nBytes += oFiles[nFileId].size;
+    }
+    let sOutput = nBytes + " bytes";
+    // optional code for multiples approximation
+    const aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"];
+    for (nMultiple = 0, nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
+      sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple] + " (" + nBytes + " bytes)";
+    }
+    // end of optional code
+    document.getElementById("fileNum").innerHTML = nFiles;
+    document.getElementById("fileSize").innerHTML = sOutput;
+  }
 
-		data = st.file_uploader("Upload a pdf file", type=["pdf"])
-		if data is not None:
-			#pdfreader = PyPDF2.PdfFileReader(data)
-			doc = fitz.open(data)
-			pages = Document.page_count 
-			
-			volume = st.slider('Volume',0,100,25,1)
-			rate = st.slider('Rate',0,100,45,1)
-			
-			if st.button("Play"):
-				boolna = 2
-				playy(data, volume, rate, onpage, pages)
-			if st.button("Pause"):
-				boolna = 1
-			if st.button("Stop"):
-				boolna = 0
-				onpage = 0
-def playy(file, vol, r, yo, pages):
-	while boolna==2:
-		with fitz.open(file) as doc:
-			for page in doc:
-				player = pyttsx3.init()
-				player.setProperty('rate', r)
-				player.setProperty('volume', vol)
-				player.say(page.getText())
-				player.runAndWait()
-				onpage = yo
+  document.getElementById("uploadInput").addEventListener("change", updateSize, false);
+  
+  let speech = new SpeechSynthesisUtterance();
+
+// Set Speech Language
+speech.lang = "en";
+
+let voices = []; // global array of available voices
+
+window.speechSynthesis.onvoiceschanged = () => {
+
+  voices = window.speechSynthesis.getVoices();
+  speech.voice = voices[0];
+
+  
+  let voiceSelect = document.querySelector("#voices");
+  voices.forEach((voice, i) => (voiceSelect.options[i] = new Option(voice.name, i)));
+};
+
+document.querySelector("#rate").addEventListener("input", () => {
+  //🐀
+  const rate = document.querySelector("#rate").value;
+  speech.rate = rate;
+  document.querySelector("#rate-label").innerHTML = rate;
+});
+
+document.querySelector("#volume").addEventListener("input", () => {
+  //🔉🔊
+  const volume = document.querySelector("#volume").value;
+  speech.volume = volume;
+  document.querySelector("#volume-label").innerHTML = volume;
+});
+
+document.querySelector("#pitch").addEventListener("input", () => {
+  //🏏
+  const pitch = document.querySelector("#pitch").value;
+  speech.pitch = pitch;
+  document.querySelector("#pitch-label").innerHTML = pitch;
+});
+
+document.querySelector("#voices").addEventListener("change", () => {
+  speech.voice = voices[document.querySelector("#voices").value];
+});
+
+document.querySelector("#start").addEventListener("click", () => {
+  speech.text = document.querySelector("textarea").value;
+  window.speechSynthesis.speak(speech);
+});
+
+document.querySelector("#pause").addEventListener("click", () => {
+  window.speechSynthesis.pause();
+});
+
+document.querySelector("#resume").addEventListener("click", () => {
+  window.speechSynthesis.resume();
+});
+
+document.querySelector("#cancel").addEventListener("click", () => {
+  window.speechSynthesis.cancel();
+});
+
+</script>
+</body>
+</html>
+
 	
-	st.write("Finished")
-
-main()
-#for num in range(yo, page in doc):
-			#page = pdfreader.getPage(pgno)
-			#tex = page.extractText()
